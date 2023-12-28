@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const app = express()
+// middlewares
+const notFoundMiddleware = require('./app/middlewares/not-found');
+const handleErrorMiddleware = require('./app/middlewares/handle-error');
 
 // router
 const categoriesRouter = require("./app/api/v1/categories/router")
@@ -26,4 +29,6 @@ app.get('/', ( req, res) => {
 
 app.use(v1, categoriesRouter)
 
+app.use(notFoundMiddleware)
+app.use(handleErrorMiddleware)
 module.exports = app;
